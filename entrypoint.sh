@@ -62,6 +62,7 @@ main() {
     git config --global url."https://".insteadOf git://
     ## $GITHUB_SERVER_URL is set as a default environment variable in all workflows, default is https://github.com
     git config --global url."$GITHUB_SERVER_URL/".insteadOf "git@${GITHUB_HOSTNAME}":
+    git config --global init.defaultBranch main
     git config --global --add safe.directory "*"
     if ${BUILD_THEMES}; then
         echo "Fetching themes"
@@ -98,7 +99,7 @@ main() {
         git add .
 
         git commit -m "Deploy ${TARGET_REPOSITORY} to ${TARGET_REPOSITORY}:$remote_branch"
-        git push --force "${remote_repo}" master:"${remote_branch}"
+        git push --force "${remote_repo}" main:"${remote_branch}"
 
         echo "Deploy complete"
     fi
